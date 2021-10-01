@@ -1,0 +1,59 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.main #reservation-list{
+    background: pink;
+}
+.main #reservation-list li{
+    display: flex;
+    align-items: center;
+}
+
+.main #reservation-list li div{
+    cursor: pointer;
+    font-weight: bold;
+}
+/* three */
+.main #reservation-list .list-three div:nth-child(1){
+    margin-right: 20px;
+}
+.main #reservation-list .list-three div:nth-child(2){
+    margin-right: 20px;
+}
+.main #reservation-list .list-three div:nth-child(3){
+    margin-right: 20px;
+}
+.main #reservation-list .list-three div:nth-child(4){
+    margin-right: 20px;
+    flex: 1;
+}
+
+
+/* two */
+.main #reservation-list .list-one div:nth-child(1){
+    margin-right: 20px;
+}
+.main #reservation-list .list-one div:nth-child(2){
+    margin-right: 20px;
+}
+.main #reservation-list .list-one div:nth-child(3){
+    margin-right: 20px;
+}
+.main #reservation-list .list-one div:nth-child(4){
+    margin-right: 20px;
+}
+.main #reservation-list .list-one div:nth-child(5){
+
+    flex: 1;
+}
+
+/* two */
+.main #reservation-list .list-two div:nth-child(1){
+    margin-right: 20px;
+}
+.main #reservation-list .list-two div:nth-child(2){
+    margin-right: 20px;
+    flex: 1;
+}

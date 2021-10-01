@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Reservation</title>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" integrity="sha512-3n19xznO0ubPpSwYCRRBgHh63DrV+bdZfHK52b1esvId4GsfwStQNPJFjeQos2h3JwCmZl0/LgLxSKMAI55hgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <link rel="stylesheet" href="/confirm.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+        <!-- fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800&display=swap" rel="stylesheet">
+        
+        <!-- font-awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+<body>
+    <div class="main">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow" style="background: #202027;">
+          <div class="container">
+              <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Hotel Reservation</a>
+              <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                      aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                  <ul class="navbar-nav flex-grow-1">
+                      <li class="nav-item logged-in" style="display: none;">
+                          <a class="modal-trigger nav-link text-white" href="" data-toggle="modal" data-target="#modal-account">Account</a>
+                      </li>
+                      <li class="nav-item logged-in" style="display: none;">
+                        <a class="nav-link text-white" href="" id="logout">Logout</a>
+                      </li>
+                      <li class="nav-item logged-out" style="display: none;">
+                        <a class="modal-trigger nav-link text-white" href="" data-toggle="modal" data-target="#loginmodal">Login</a>
+                      </li>
+                      <li class="nav-item logged-out" style="display: none;">
+                        <a class="modal-trigger nav-link text-white" href="" data-toggle="modal" data-target="#modal-signup">Sign up</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+      <div class="container-fluid" style="background:#202027;">
+        <div class="header container">
+            <div class="header-image">
+                <img src="./img/hotel.jpg" alt="">
+            </div>
+            <div class="header-content">
+                <h3>Okada Manila</h3>
+                <div class="stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <p>New Seaside Drive, Manila, 1701, Philippines</p>
+            </div>
+        </div>
+      </div>
+
+    
+        <!-- Modal -->
+        <div class="modal fade" id="modal-signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-email">Email address</label>
+                    <input type="email" class="form-control" id="signup-email" aria-describedby="emailHelp" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" class="form-control" id="signup-password" placeholder="Choose Password" required>
+                </div>
+                <p class="error"></p>
+                <div class="modal-footer">
+                    <button type="submit" class="btn text-white" style="background: #F3AB1F;">Sign Up</button>
+                </div>
+                </form>
+            </div>
+        
+            </div>
+        </div>
+        </div>
+        <div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email address</label>
+                    <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" class="form-control" id="login-password" placeholder="Choose Password" required>
+                    <p class="error"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn text-white" style="background: #F3AB1F;">Log In</button>
+                    
+                </div>
+                </form>
+            </div>
+        
+            </div>
+        </div>
+        </div>
+        <div id="modal-account" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Account Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <div class="account-details"></div>
+            </div>
+        
+            </div>
+        </div>
+        </div>
+        <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                <h5 style="margin: 0;">Success!</h5>
+                </div>
+            </div>
+            </div>
+        </div>
+
+<div class="container-fluid py-5">
+    <div class="confirm container">
+        <div class="row">
+            <div class="col-md-8">
+                <form class="form" id="confirmForm" style="background: #fff;">
+                    <h3>CONFIRM YOUR BOOKING</h3>
+                    <div class="wrapper">
+                        <label class="col-form-label " for="firstname">Guest Name</label>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" name="firstname" id="firstname" placeholder="First Name" required>
+                            </div>
+                            <div class="col-md-6 lastname">
+                                <input class="form-control" type="text" name="lastname" id="lastname" placeholder="Last Name" required>
+                            </div>
+                        </div>
+
+                        <label class="col-form-label " for="firstname">Contact Phone</label>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" name="contact" id="contact" required>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn text-white" style="background: #F3AB1F;">Complete Reservation</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 receipt">
+                <div class="booking-summary">
+                    <div class="summary-title d-flex justify-content-center align-items-center">
+                        <i class="fas fa-tags mr-2"></i>
+                        <p>YOUR BOOKING SUMMARY</p>
+                    </div>
+                    <ul id="reservation-list"></ul>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="container-fluid">
+
+    <h3>Hotel Reservation ©2021</h3>
+
+    <div class="social">
+      <i class="fab fa-facebook-f"></i>
+      <i class="fab fa-instagram"></i>
+      <i class="fab fa-twitter"></i>
+      <i class="fab fa-google"></i>
+    </div>
+</footer>
+
+    </div>
+    <script>
+        var config = {
+        apiKey: "AIzaSyBpAoWvYpkNLeRjvh65Ru8Seowzp1CIaag",
+        authDomain: "hotelreservation-8a002.firebaseapp.com",
+        projectId: "hotelreservation-8a002",
+        storageBucket: "hotelreservation-8a002.appspot.com",
+        messagingSenderId: "723002325473",
+        appId: "1:723002325473:web:e6a18c2245078556847aa0"
+      };
+
+      firebase.initializeApp(config);
+      const db = firebase.firestore();
+      const auth = firebase.auth();
+
+      db.settings({ timestampsInSnapshots: true });
+  </script>
+      <script src="/confirm.js"></script>
+      <script src="/confirmAuth.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

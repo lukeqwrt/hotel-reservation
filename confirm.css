@@ -1,0 +1,152 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.main{
+    background: #EAEAEA;
+}
+.main .header{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main .header .header-content{
+    color: #fff;
+}
+.main .header .header-content h3{
+    text-align: center;
+    padding: 12px;
+    margin: 0;
+}
+.main .header .header-content .stars{
+    text-align: center;
+    color: #F3AB1F;
+}
+.main .header .header-content .stars i{
+    padding: 0 2px;
+}
+.main .header .header-content p{
+    font-size: 13px;
+    padding: 10px 0;
+    color: #c9cac3;
+    text-align: center;
+}
+.main .header-image img{
+    height: auto;
+    width: 250px;
+    display: none;
+}
+
+@media screen and (min-width: 751px) {
+    .main .header{
+        padding: 30px 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .main .header .header-content{
+        margin-left: 40px;
+    }
+    .main .header-image img{
+        display: block;
+    }
+    .main .header .header-content h3{
+        font-weight: 700;
+        font-size: 35px;
+        text-align: left;
+        padding: 12px 0;
+    }
+    .main .header .header-content p{
+        font-weight: 400;
+        font-size: 14px;
+
+    }
+    .main .header .header-content .stars{
+        text-align: left;
+    }
+}
+
+/* receipt */
+.main .confirm .form{
+    border: 2px solid rgb(33, 132, 139);
+}
+.main .confirm .form h3{
+    text-align: center;
+    padding: 30px;
+}
+.main .confirm .form .wrapper{
+    padding:0 50px 50px 50px;
+    margin:0 auto ;
+    height: 100%;
+}
+
+.main .booking-summary{
+    background: #F1F2F2;
+}
+.main .booking-summary .summary-title{
+    padding: 20px 0;
+    background: #C1E1C1;
+}
+.main .booking-summary .summary-title p{
+    margin: 0;
+    text-align: center;
+}
+
+.main .booking-summary #reservation-list{
+    padding: 20px;
+}
+.main .booking-summary #reservation-list li{
+    list-style: none;
+}
+.main .booking-summary #reservation-list li div{
+    margin: 10px 0;
+}
+
+@media screen and (max-width: 751px) {
+    .main .confirm .form .wrapper{
+        padding:0 20px 20px 20px;
+        margin:0 auto ;
+        height: 100%;
+    }
+    .main .confirm .form .wrapper .lastname{
+        margin-top: 20px;
+    }
+
+    .main .confirm .receipt{
+        margin-top: 30px;
+    }
+}
+
+.main footer{
+    background: #fff;
+    padding: 50px;
+    /* flex */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.main footer h3{
+    font-size: 16px;
+    margin: 0;
+}
+
+.main footer .social i{
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.main footer .social i:hover{
+    color: #F3AB1F;
+    transition: 0.3s;
+}
+@media screen and (max-width: 500px) {
+    .main footer{
+        padding: 20px 10px;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 1fr auto;
+    }
+    
+}

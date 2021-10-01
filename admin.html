@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/admin.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- font-awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+</head>
+<body>
+
+    <div class="main">
+      <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background: #202027;">
+        <div class="container">
+            <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Hotel Reservation</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item logged-in m-0" style="display: none;">
+                        <a class="modal-trigger nav-link text-white" href="" data-toggle="modal" data-target="#modal-account">Account</a>
+                    </li>
+                    <li class="nav-item logged-in m-0" style="display: none;">
+                      <a class="nav-link text-white" href="" id="logout">Logout</a>
+                    </li>
+                    <li class="nav-item logged-out m-0" style="display: none;">
+                      <a class="modal-trigger nav-link text-white" href="" data-toggle="modal" data-target="#loginmodal">Login</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Modal -->
+
+<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-email">Email address</label>
+            <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp" placeholder="Email Address" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" class="form-control" id="login-password" placeholder="Choose Password" required>
+            <p class="error"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn text-white" style="background: #F3AB1F;">Log In</button>
+            
+          </div>
+        </form>
+      </div>
+  
+    </div>
+  </div>
+</div>
+<div id="modal-account" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Account Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <div class="account-details"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+        <div class="content container pb-5">
+            <h3>Admin</h3>
+            <form id="add-rooms-form">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" name="roomDescription" placeholder="Room Description">
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" name="roomSize" placeholder="Room Size">
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" name="price" placeholder="Price">
+                    </div>
+                    <div class="col-md-3">
+                    <button class="btn btn-warning">Add room</button>
+                    </div>
+                </div> 
+            </form>
+            <ul class="list-group" id="rooms-list"></ul>
+        </div>        
+    </div>
+
+
+    <div class="modal fade" id="editRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Update</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="edit-form">
+                <div class="form-group">
+                  <label for="updateDescription">Update room description</label>
+                  <input name="roomDescription" type="text" class="form-control" id="updateDescription" aria-describedby="emailHelp" placeholder="Update room description" required>
+                </div>
+                <div class="form-group">
+                  <label for="updateRoomSize">Update room size</label>
+                  <input name="roomSize" type="text" class="form-control" id="updateRoomSize" placeholder="Update room size" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateRoomPrice">Update room price</label>
+                    <input name="price" type="text" class="form-control" id="updateRoomPrice" placeholder="Update room price" required>
+                  </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn text-white" style="background: #F3AB1F;">Log In</button>
+                  
+                </div>
+              </form>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        var config = {
+        apiKey: "AIzaSyBpAoWvYpkNLeRjvh65Ru8Seowzp1CIaag",
+        authDomain: "hotelreservation-8a002.firebaseapp.com",
+        projectId: "hotelreservation-8a002",
+        storageBucket: "hotelreservation-8a002.appspot.com",
+        messagingSenderId: "723002325473",
+        appId: "1:723002325473:web:e6a18c2245078556847aa0"
+      };
+
+      firebase.initializeApp(config);
+      const db = firebase.firestore();
+      const auth = firebase.auth();
+
+      db.settings({ timestampsInSnapshots: true });
+  </script>
+  <script src="/adminAuth.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

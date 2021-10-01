@@ -1,0 +1,31 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.main h3{
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 30px;
+    margin: 30px 0;
+}
+
+.main ul li{
+    margin-top: 15px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr 1fr auto;
+}
+.main ul li span:nth-child(2){
+    justify-self: center;
+}
+.main ul li .fa-times{
+    justify-self: end;
+    align-self: center;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 20px;
+}
+.main ul li:nth-child(1){
+    margin-top: 25px;
+}
+
