@@ -135,6 +135,7 @@ auth.onAuthStateChanged(user => {
             ).then(() => {
                 $('#success').modal('show')
                 window.sessionStorage.setItem('hotelreservation-cached', '')
+                window.location.href = "index.html"
             })
             confirmForm.firstname.value = ""
             confirmForm.lastname.value = ""
