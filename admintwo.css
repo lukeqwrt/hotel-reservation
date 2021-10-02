@@ -4,17 +4,27 @@
 }
 
 .main #reservation-list{
-    background: pink;
+    overflow-y: scroll;
+
+    /* background: pink; */
 }
 .main #reservation-list li{
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(6,200px) 100px 100px 100px repeat(2, 400px) 50px;
+    /* column-gap: 50px; */
+    grid-auto-flow: column;
+    align-items: start;
+    padding: 20px 10px;
 }
 
-.main #reservation-list li div{
+.main #reservation-list li .cross{
     cursor: pointer;
     font-weight: bold;
+    height: 100%;
+text-align: center;
 }
+
+
 /* three */
 .main #reservation-list .list-three div:nth-child(1){
     margin-right: 20px;
@@ -57,3 +67,9 @@
     margin-right: 20px;
     flex: 1;
 }
+
+
+#202027
+#F3AB1F
+#E8E8E9
+#fff

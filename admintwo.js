@@ -33,6 +33,13 @@ function renderCustomerDetails(doc){
     let firstname = document.createElement('div');
     let lastname = document.createElement('div');
     let contact = document.createElement('div');
+    let reservefrom = document.createElement('div');
+    let reserveto = document.createElement('div');
+    let adults = document.createElement('div');
+    let children = document.createElement('div');
+    let rooms = document.createElement('div');
+    let customerRooms = document.createElement('div');
+    let userid = document.createElement('div');
     let cross = document.createElement('div');
 
     li.setAttribute('data-id', doc.id);
@@ -40,50 +47,28 @@ function renderCustomerDetails(doc){
     firstname.textContent = `Firstname: ${doc.data().firstname}`;
     lastname.textContent = `Lastname: ${doc.data().lastname}`;
     contact.textContent = `Contact: ${doc.data().contact}`;
+    reservefrom.textContent = `reservefrom: ${doc.data().checkin}`;
+    reserveto.textContent = `reserveto: ${doc.data().checkout}`;
+    adults.textContent = `adults: ${doc.data().adults}`;
+    children.textContent = `children: ${doc.data().children}`;
+    rooms.textContent = `rooms: ${doc.data().rooms}`;
+    customerRooms.textContent = `customerRooms: ${doc.data().CustomeRooms}`;
+    userid.textContent = `userid: ${doc.data().userId}`;
     cross.textContent = 'X';
+    cross.classList.add('cross')
 
-    li.classList.add('list-group-item')
-    li.classList.add('list-three')
+
     li.appendChild(email)
     li.appendChild(firstname)
     li.appendChild(lastname)
     li.appendChild(contact)
-    li.appendChild(cross)
-
-    reservation.appendChild(li)
-
-    //deleting data
-    cross.addEventListener('click', (e) => {
-        e.stopPropagation();
-        let id = e.target.parentElement.getAttribute('data-id');
-        db.collection('Reservation').doc(id).delete();
-    })
-
-}
-function renderReservation(doc){
-    let li = document.createElement('li');
-    let checkin = document.createElement('div');
-    let checkout = document.createElement('div');
-    let rooms = document.createElement('div');
-    let adult = document.createElement('div');
-    let children = document.createElement('div');
-    let cross = document.createElement('div');
-
-    li.setAttribute('data-id', doc.id);
-    checkin.textContent = `Checkin: ${doc.data().checkin}`;
-    checkout.textContent = `Checkout: ${doc.data().checkout}`;
-    rooms.textContent = `Rooms: ${doc.data().rooms}`;
-    adult.textContent = `Adult: ${doc.data().adults}`;
-    children.textContent = `Children: ${doc.data().children}`;
-    cross.textContent = 'X';
-
-    li.classList.add('list-group-item')
-    li.classList.add('list-one')
-    li.appendChild(checkin)
-    li.appendChild(checkout)
-    li.appendChild(rooms)
-    li.appendChild(adult)
+    li.appendChild(reservefrom)
+    li.appendChild(reserveto)
+    li.appendChild(adults)
     li.appendChild(children)
+    li.appendChild(rooms)
+    li.appendChild(customerRooms)
+    li.appendChild(userid)
     li.appendChild(cross)
 
     reservation.appendChild(li)
@@ -97,66 +82,16 @@ function renderReservation(doc){
 
 }
 
-function renderCustomerRoom(doc){
-    let li = document.createElement('li');
-    let CustomerRooms = document.createElement('div');
-    let price = document.createElement('div');
-    let cross = document.createElement('div');
-    li.setAttribute('data-id', doc.id);
-    CustomerRooms.textContent = `Your Room: ${doc.data().CustomerRooms}`;
-    price.textContent = `Rooms Price: ${doc.data().price}`;
-    cross.textContent = 'X';
-
-    li.classList.add('list-group-item')
-    li.classList.add('list-two')
-
-    li.appendChild(CustomerRooms);
-    li.appendChild(price);
-    li.appendChild(cross);
-
-    reservation.appendChild(li)
-
-    //deleting data
-    cross.addEventListener('click', (e) => {
-        e.stopPropagation();
-        let id = e.target.parentElement.getAttribute('data-id');
-        db.collection('Reservation').doc(id).delete();
-    })
-}
 
 
 auth.onAuthStateChanged(user => {
     if(user){
          //       realtime listener
-         db.collection('Reservation').where("customerConfirm", "==", "confirmDB").onSnapshot(snapshot => {
+         db.collection('Reservation').onSnapshot(snapshot => {
             let changes = snapshot.docChanges();
             changes.forEach(change => {
                 if(change.type == 'added'){
                     renderCustomerDetails(change.doc)
-                
-                }else if(change.type == 'removed'){
-                    let li = reservation.querySelector('[data-id=' + change.doc.id + ']')
-                    reservation.removeChild(li);
-                }
-            })
-        })
-         db.collection('Reservation').where("uniqueResDocs", "==", "show").onSnapshot(snapshot => {
-            let changes = snapshot.docChanges();
-            changes.forEach(change => {
-                if(change.type == 'added'){
-                    renderReservation(change.doc)
-                
-                }else if(change.type == 'removed'){
-                    let li = reservation.querySelector('[data-id=' + change.doc.id + ']')
-                    reservation.removeChild(li);
-                }
-            })
-        })
-        db.collection('Reservation').where("customerRoomDB", "==", "customerRoomDB").onSnapshot(snapshot => {
-            let changes = snapshot.docChanges();
-            changes.forEach(change => {
-                if(change.type == 'added'){
-                    renderCustomerRoom(change.doc)
                 
                 }else if(change.type == 'removed'){
                     let li = reservation.querySelector('[data-id=' + change.doc.id + ']')
