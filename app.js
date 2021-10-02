@@ -139,11 +139,8 @@ auth.onAuthStateChanged(user => {
     else{
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            form.checkin.value = '';
-            form.checkout.value = '';
-            form.rooms.value = '';
-            form.adults.value = '';
-            form.children.value = '';
+     
+            
             $('#loginmodal').modal('show')
         })
         setupUi();
