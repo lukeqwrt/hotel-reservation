@@ -93,7 +93,7 @@ auth.onAuthStateChanged(user => {
                         userId: user.uid,
                         uniqueResDocs: 'show'
                     }));
-                
+                    $('#loginmodal').modal('hide')
                     form.checkin.value = '';
                     form.checkout.value = '';
                     form.rooms.value = '';
@@ -140,7 +140,6 @@ auth.onAuthStateChanged(user => {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
      
-            
             $('#loginmodal').modal('show')
         })
         setupUi();
