@@ -27,7 +27,7 @@ const setupUi = (user) => {
     }
 }
 
-function renderCustomerDetails(doc){
+function renderReservation(doc){
     let li = document.createElement('li');
     let email = document.createElement('div');
     let firstname = document.createElement('div');
@@ -91,7 +91,7 @@ auth.onAuthStateChanged(user => {
             let changes = snapshot.docChanges();
             changes.forEach(change => {
                 if(change.type == 'added'){
-                    renderCustomerDetails(change.doc)
+                    renderReservation(change.doc)
                 
                 }else if(change.type == 'removed'){
                     let li = reservation.querySelector('[data-id=' + change.doc.id + ']')
@@ -99,9 +99,11 @@ auth.onAuthStateChanged(user => {
                 }
             })
         })
+        
         setupUi(user)
     }
     else{
         setupUi()
+        
     }
 })

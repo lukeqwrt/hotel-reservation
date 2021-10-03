@@ -141,7 +141,9 @@ auth.onAuthStateChanged(user => {
             confirmForm.firstname.value = ""
             confirmForm.lastname.value = ""
             confirmForm.contact.value = ""
+            
         })
+
         setupUi(user)
     }
     else{
