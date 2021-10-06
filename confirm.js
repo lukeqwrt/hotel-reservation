@@ -33,6 +33,8 @@ function renderReservation(doc){
     let rooms = document.createElement('div');
     let adult = document.createElement('div');
     let children = document.createElement('div');
+    let roomName = document.createElement('div');
+    let roomPrice = document.createElement('div');
     let cross = document.createElement('div');
 
     li.setAttribute('data-id', doc.id);
@@ -41,6 +43,8 @@ function renderReservation(doc){
     rooms.textContent = `Rooms: ${doc.rooms}`;
     adult.textContent = `Adult: ${doc.adults}`;
     children.textContent = `Children: ${doc.children}`;
+    roomName.textContent = `Your room: ${doc.CustomeRooms}`;
+    roomPrice.textContent = `Room price: ${doc.price}`;
     cross.textContent = 'X';
     cross.classList.add('close')
 
@@ -49,6 +53,8 @@ function renderReservation(doc){
     li.appendChild(rooms)
     li.appendChild(adult)
     li.appendChild(children)
+    li.appendChild(roomName)
+    li.appendChild(roomPrice)
     // li.appendChild(cross)
 
     reservation.appendChild(li)
@@ -121,6 +127,8 @@ auth.onAuthStateChanged(user => {
         //     })
         // })
 
+
+
         confirmForm.addEventListener('submit', (e) => {
 
             e.preventDefault();
@@ -132,11 +140,10 @@ auth.onAuthStateChanged(user => {
 
             // console.log(user.email)
             db.collection('Reservation').add(
-                cached
+               cached
             ).then(() => {
                 $('#success').modal('show')
                 window.sessionStorage.setItem('hotelreservation-cached', '')
-  
             })
             confirmForm.firstname.value = ""
             confirmForm.lastname.value = ""
