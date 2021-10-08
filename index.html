@@ -173,8 +173,16 @@
       <div class="content">
         <form id="add-reservation-form" class="form">
         <div class="checkin-wrapper">
-          <input type="date" name="checkin" placeholder="Check In" id="datePicker" class="txtDate" required>
-          <input type="date" name="checkout" placeholder="Check Out" id="dateCheckOut" class="txtDate" required>
+          <div class="mydate">
+            <p>Check In</p>
+            <input type="text" name="checkin" placeholder="Check In" id="dateCheckIn" class="txtDate"onfocus="(this.type='date')" required>
+          </div>
+          <div class="mydate">
+            <p>Check Out</p>
+            <input type="date" name="checkout" placeholder="Check Out" id="dateCheckOut" class="txtDate" required>
+          </div>
+      
+        
         </div>
       
           <!-- <input type="text" name="rooms" placeholder="Rooms" required> -->
@@ -185,6 +193,11 @@
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
             </select>
           </div>
           <!-- <input type="text" name="adults" placeholder="Adult" required> -->
@@ -195,6 +208,11 @@
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
             </select>
           </div>
           <!-- <input type="text" name="children" placeholder="Children" required> -->
@@ -206,6 +224,8 @@
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
+              <option value="5">5</option>
+         
             </select>
           </div>
           <button class="btn-add">Add Reservation</button>
@@ -303,7 +323,7 @@
         const auth = firebase.auth();
 
         db.settings({ timestampsInSnapshots: true });
-        document.getElementById('datePicker').valueAsDate = new Date();
+
     </script>
     <!-- <script type="module">
         // Import the functions you need from the SDKs you need
@@ -355,43 +375,46 @@
       <script src="app.js"></script>
       <script src="auth.js"></script>
       <script>
+        function renderDate(){
+          var mydate = new Date();
+          var year = mydate.getYear();
+          if(year < 1000){
+            year += 1900
+          }
+          var day = mydate.getDay();
+          var month = mydate.getMonth();
+          var daym = mydate.getDate();
+          var dayarray = new Array("Sunday", "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+          var montharray = new Array("January", "February", "March", "April","May","June","July","August","September","October","November","December")
+          // date ]
+          const checkinDate = document.getElementById("dateCheckIn")
 
-$(function(){
-    var dtToday = new Date();
-    
-    var month = dtToday.getMonth() + 1;
-    var day = dtToday.getDate();
-    var year = dtToday.getFullYear();
-    if(month < 10)
-        month = '0' + month.toString();
-    if(day < 10)
-        day = '0' + day.toString();
-    
-    var maxDate = year + '-' + month + '-' + day;
-
-    // or instead:
-    // var maxDate = dtToday.toISOString().substr(0, 10);
-    $('.txtDate').attr('min', maxDate);
-});
-$(function(){
-    var dtToday = new Date();
-    
-    var month = dtToday.getMonth() + 1;
-    var day = dtToday.getDate();
-    var year = dtToday.getFullYear();
-    if(month < 10)
-        month = '0' + month.toString();
-    if(day < 10)
-        day = '0' + day.toString();
-    
-    var maxDate = year + '-' + month + '-' + day;
-
-    // or instead:
-    // var maxDate = dtToday.toISOString().substr(0, 10);
-    $('#dateCheckOut').attr('min', maxDate);
-});
+          checkinDate.setAttribute("placeholder",  " "+year+  " " +montharray[month]+ " "+daym+ " " +dayarray[day]+ " "); 
+        }
+        renderDate()
 
 
+        var date = new Date();
+        var tdate = date.getDate();
+        var month = date.getMonth() + 1;
+        
+        if(tdate < 10){
+          tdate = '0' + tdate;
+        }
+        if(month < 10){
+          month = "0" + month;
+        }
+        var year = date.getUTCFullYear();
+        var minDate = year + "-" + month + "-" + tdate;
+
+        const checkIn = document.getElementById('dateCheckIn')
+        checkIn.setAttribute("min", minDate)
+
+        checkIn.addEventListener('change', () => {
+          document.getElementById('dateCheckOut').setAttribute("min", checkIn.value)
+        })
+  
+        
       </script>
 
 
