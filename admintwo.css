@@ -10,7 +10,7 @@
 }
 .main #reservation-list li{
     display: grid;
-    grid-template-columns: repeat(6,200px) 100px 100px 100px repeat(2, 400px) 50px;
+    grid-template-columns: repeat(6,400px) 100px 100px 100px repeat(2, 400px) 50px;
     /* column-gap: 50px; */
     grid-auto-flow: column;
     align-items: start;
@@ -23,7 +23,10 @@
     height: 100%;
 text-align: center;
 }
-
+.main #reservation-list li div{
+    border-right: 2px solid gray;
+    padding:0 20px;
+}
 
 /* three */
 .main #reservation-list .list-three div:nth-child(1){

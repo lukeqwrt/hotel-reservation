@@ -137,9 +137,7 @@
     grid-template-rows: auto 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr;
 }
-.content .form .checkin-wrapper{
 
-}
 .content .form .checkin-wrapper .mydate{
     height: 80px;
     border: none;
@@ -345,9 +343,7 @@
 }
 
 /* map */
-.main .map{
 
-}
 .main .map h3{
     padding: 20px 0;
     font-size: 20px;

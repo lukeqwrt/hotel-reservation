@@ -104,7 +104,7 @@ function renderRooms(doc){
     let cross = document.createElement('div');
 
     var roomContent = `
-        <img src="./img/rooms-li.jpg" alt="">
+        <img src="./img/inventory-img.jpg" alt="">
         <p class="room-size">${doc.data().roomDescription} - ${doc.data().roomSize}</p>
         <div class="price">
         <p>Price: <span class="room-price">${doc.data().price}</span></p>
