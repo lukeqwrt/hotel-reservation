@@ -32,20 +32,7 @@ function renderReservation(doc){
     let tr = document.createElement('tr');
     tr.classList.add('mytr')
     const buttons = document.getElementById('buttons')
-    // let email = document.createElement('div');
-    // let firstname = document.createElement('div');
-    // let lastname = document.createElement('div');
-    // let contact = document.createElement('div');
-    // let reservefrom = document.createElement('div');
-    // let reserveto = document.createElement('div');
-    // let adults = document.createElement('div');
-    // let children = document.createElement('div');
-    // let rooms = document.createElement('div');
-    // let customerRooms = document.createElement('div');
-    // let userid = document.createElement('div');
-    // let cross = document.createElement('button');
-    // cross.classList.add('btn')
-    // cross.textContent = 'X';
+
     var tdContent = `
         <td class="text-nowrap">
             ${doc.data().email}
@@ -85,44 +72,18 @@ function renderReservation(doc){
         right:0;
         background-color: white;
         z-index:2;">
-            <button class="btn btn-warning text-white mr-2">Accept</button>
+            <button id="accept" class="btn btn-success text-white mr-2">Accept</button>
             <button class="btn btn-danger mr-2">Cancel</button>
             <button id="remove" class="btn btn-default mr-2">X</button>
         </td>
     `
 
     tr.setAttribute('data-id', doc.id);
-    // email.textContent = `Email: ${doc.data().email}`;
-    // firstname.textContent = `Firstname: ${doc.data().firstname}`;
-    // lastname.textContent = `Lastname: ${doc.data().lastname}`;
-    // contact.textContent = `Contact: ${doc.data().contact}`;
-    // reservefrom.textContent = `reservefrom: ${doc.data().checkin}`;
-    // reserveto.textContent = `reserveto: ${doc.data().checkout}`;
-    // adults.textContent = `adults: ${doc.data().adults}`;
-    // children.textContent = `children: ${doc.data().children}`;
-    // rooms.textContent = `rooms: ${doc.data().rooms}`;
-    // customerRooms.textContent = `customerRooms: ${doc.data().CustomeRooms}`;
-    // userid.textContent = `userid: ${doc.data().userId}`;
-    // cross.textContent = 'X';
-    // cross.classList.add('cross')
-
-
-    // li.appendChild(email)
-    // li.appendChild(firstname)
-    // li.appendChild(lastname)
-    // li.appendChild(contact)
-    // li.appendChild(reservefrom)
-    // li.appendChild(reserveto)
-    // li.appendChild(adults)
-    // li.appendChild(children)
-    // li.appendChild(rooms)
-    // li.appendChild(customerRooms)
-    // li.appendChild(userid)
-    // li.appendChild(cross)
 
     tr.innerHTML = tdContent;
     // console.log(tr.querySelector('#remove'))
     const removeBtn = tr.querySelector('#remove')
+    const acceptBtn = tr.querySelector('#accept')
     // buttons.appendChild("x")
     table.appendChild(tr)
 
@@ -133,6 +94,24 @@ function renderReservation(doc){
         db.collection('Reservation').doc(id).delete();
     })
 
+    // accept and send email
+    acceptBtn.addEventListener('click', (e) => {
+        
+        let userEmail = e.target.parentElement.parentElement.children[0].innerText
+            Email.send({
+              Host: "smtp.gmail.com",
+              Username: "sbit3nhotelmanagementsystem@gmail.com",
+              Password: "Hotel1234",
+              To: userEmail,
+              From: "sbit3nhotelmanagementsystem@gmail.com",
+              Subject: "Hotel Reservation",
+              Body: "Reservation Accepted!!",
+            })
+              .then(function (message) {
+                alert("Accepted!")
+            });
+          
+    })
 }
 
 
