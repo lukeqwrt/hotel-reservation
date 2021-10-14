@@ -3,7 +3,10 @@ const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
 const accountDetails = document.querySelector('.account-details');
 const confirmForm = document.querySelector('#confirmForm')
-
+window.addEventListener('load', () => {
+    const loader =  document.querySelector('.loader');
+    loader.classList.add("hidden")
+})
 const setupUi = (user) => {
     if(user){
         //account info
@@ -35,7 +38,17 @@ function renderReservation(doc){
     let children = document.createElement('div');
     let roomName = document.createElement('div');
     let roomPrice = document.createElement('div');
+    let totalCharges = document.createElement('div');
     let cross = document.createElement('div');
+    const dayratesTotal = doc.dayRates * parseInt(doc.price.substring(1), 10)
+    totalCharges.classList.add('totalCharges-wrapper')
+    let totalChargesContent = `
+        <div>Total Charges</div>
+        <p>₱${dayratesTotal}</p>
+    `
+    let cached = JSON.parse(window.sessionStorage.getItem('hotelreservation-cached'));
+    cached.totalCharges = dayratesTotal
+    window.sessionStorage.setItem('hotelreservation-cached', JSON.stringify(cached))
 
     li.setAttribute('data-id', doc.id);
     checkin.textContent = `Checkin: ${doc.checkin}`;
@@ -45,6 +58,7 @@ function renderReservation(doc){
     children.textContent = `Children: ${doc.children}`;
     roomName.textContent = `Your room: ${doc.CustomeRooms}`;
     roomPrice.textContent = `Room price: ${doc.price}`;
+    totalCharges.innerHTML = totalChargesContent
     cross.textContent = 'X';
     cross.classList.add('close')
 
@@ -55,6 +69,7 @@ function renderReservation(doc){
     li.appendChild(children)
     li.appendChild(roomName)
     li.appendChild(roomPrice)
+    li.appendChild(totalCharges)
     // li.appendChild(cross)
 
     reservation.appendChild(li)
@@ -101,7 +116,6 @@ auth.onAuthStateChanged(user => {
         
         renderReservation(cached)
 
-
         //  db.collection('Reservation').where("userId", "==", user.uid).where("uniqueResDocs", "==", "show").onSnapshot(snapshot => {
         //     let changes = snapshot.docChanges();
         //     changes.forEach(change => {
@@ -137,7 +151,6 @@ auth.onAuthStateChanged(user => {
             cached.lastname = confirmForm.lastname.value
             cached.contact = confirmForm.contact.value
             cached.userId = user.uid
-
             // console.log(user.email)
             db.collection('Reservation').add(
                cached

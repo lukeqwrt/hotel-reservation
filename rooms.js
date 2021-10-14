@@ -6,6 +6,11 @@ const loggedInLinks = document.querySelectorAll('.logged-in');
 const accountDetails = document.querySelector('.account-details');
 const roomList = document.querySelector('#rooms-list');
 
+window.addEventListener('load', () => {
+    const loader =  document.querySelector('.loader');
+    loader.classList.add("hidden")
+})
+
 const setupUi = (user) => {
     if(user){
         //account info

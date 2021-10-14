@@ -4,6 +4,13 @@ const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
 const accountDetails = document.querySelector('.account-details');
 
+window.addEventListener('load', () => {
+    const loader =  document.querySelector('.loader');
+    loader.classList.add("hidden")
+})
+
+
+
 const setupUi = (user) => {
     if(user){
         //account info
@@ -84,6 +91,16 @@ auth.onAuthStateChanged(user => {
             //    console.log(user.uid)
                 form.addEventListener('submit', (e) => {
                     e.preventDefault();
+                  
+                    const date1formInput = document.querySelector('#dateCheckIn').value
+                    const date2formInput = document.querySelector('#dateCheckOut').value
+               
+                    let date1 = new Date(date1formInput)
+                    let date2 = new Date(date2formInput)
+                    let diff = date2.getTime() - date1.getTime();
+                    let msInDay = 1000 * 3600 * 24;
+          
+                    const dayPrice = diff/msInDay
                     window.sessionStorage.setItem( 'hotelreservation-cached', JSON.stringify({
                         checkin: form.checkin.value,
                         checkout: form.checkout.value,
@@ -91,6 +108,7 @@ auth.onAuthStateChanged(user => {
                         adults: form.adults.value,
                         children: form.children.value,
                         userId: user.uid,
+                        dayRates: dayPrice,
                         uniqueResDocs: 'show'
                     }));
                     $('#loginmodal').modal('hide')
@@ -157,4 +175,3 @@ function goToSecton(section){
     })
   }
   
-

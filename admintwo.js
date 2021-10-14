@@ -37,6 +37,9 @@ function renderReservation(doc){
         <td class="text-nowrap">
             ${doc.data().email}
         </td>
+        <td class="text-nowrap text-success" style="font-weight: 600">
+            ₱${doc.data().totalCharges}
+        </td>
         <td class="text-nowrap">
             ${doc.data().firstname}
         </td>
@@ -61,7 +64,6 @@ function renderReservation(doc){
         <td class="text-nowrap">
             ${doc.data().rooms}
         </td>
-
         <td class="text-nowrap">
             ${doc.data().CustomeRooms}
         </td>
@@ -105,7 +107,17 @@ function renderReservation(doc){
               To: userEmail,
               From: "sbit3nhotelmanagementsystem@gmail.com",
               Subject: "Hotel Reservation",
-              Body: "Reservation Accepted!!",
+              Body: `Reservation Accepted!! your booking summary: 
+              Check In: ${doc.data().checkin}, Check Out: ${doc.data().checkout},
+              Adults: ${doc.data().adults},
+              Children: ${doc.data().children},
+              Rooms: ${doc.data().rooms},
+
+              Total Charges: ₱${doc.data().totalCharges},
+
+
+              ` 
+            
             })
               .then(function (message) {
                 alert("Accepted!")
