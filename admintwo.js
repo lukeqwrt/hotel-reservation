@@ -98,8 +98,8 @@ function renderReservation(doc){
 
     // accept and send email
     acceptBtn.addEventListener('click', (e) => {
-        
-        let userEmail = e.target.parentElement.parentElement.children[0].innerText
+               let userEmail = e.target.parentElement.parentElement.children[0].innerText
+      
             Email.send({
               Host: "smtp.gmail.com",
               Username: "sbit3nhotelmanagementsystem@gmail.com",
@@ -112,15 +112,10 @@ function renderReservation(doc){
               Adults: ${doc.data().adults},
               Children: ${doc.data().children},
               Rooms: ${doc.data().rooms},
-
-              Total Charges: ₱${doc.data().totalCharges},
-
-
               ` 
-            
-            })
-              .then(function (message) {
+            }).then(function (message) {
                 alert("Accepted!")
+                console.log('hello')
             });
           
     })

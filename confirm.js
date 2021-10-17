@@ -46,9 +46,6 @@ function renderReservation(doc){
         <div>Total Charges</div>
         <p>₱${dayratesTotal}</p>
     `
-    let cached = JSON.parse(window.sessionStorage.getItem('hotelreservation-cached'));
-    cached.totalCharges = dayratesTotal
-    window.sessionStorage.setItem('hotelreservation-cached', JSON.stringify(cached))
 
     li.setAttribute('data-id', doc.id);
     checkin.textContent = `Checkin: ${doc.checkin}`;
@@ -80,6 +77,12 @@ function renderReservation(doc){
         let id = e.target.parentElement.getAttribute('data-id');
         db.collection('Reservation').doc(id).delete();
     })
+    
+
+
+    // let cached = JSON.parse(window.sessionStorage.getItem('hotelreservation-cached'));
+    // cached.totalCharges = dayratesTotal
+    // window.sessionStorage.setItem('hotelreservation-cached', JSON.stringify(cached))
 
 }
 
