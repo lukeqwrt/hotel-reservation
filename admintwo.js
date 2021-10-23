@@ -98,47 +98,43 @@ function renderReservation(doc){
 
     // accept and send email
     acceptBtn.addEventListener('click', (e) => {
-               let userEmail = e.target.parentElement.parentElement.children[0].innerText
-      
+        e.stopPropagation();
+            let userEmail = e.target.parentElement.parentElement.children[0].innerText
             Email.send({
-              Host: "smtp.gmail.com",
-              Username: "sbit3nhotelmanagementsystem@gmail.com",
-              Password: "Hotel1234",
-              To: userEmail,
-              From: "sbit3nhotelmanagementsystem@gmail.com",
-              Subject: "Hotel Reservation",
-              Body: `Reservation Accepted!! your booking summary: 
-              Check In: ${doc.data().checkin}, Check Out: ${doc.data().checkout},
-              Adults: ${doc.data().adults},
-              Children: ${doc.data().children},
-              Rooms: ${doc.data().rooms},
-              ` 
-            }).then(function (message) {
-                alert("Accepted!")
-                console.log('hello')
-            });
+                Host: "smtp.gmail.com",
+                Username: "reservationhotel76@gmail.com",
+                Password: "Hotel1234",
+                To: "luke.adrian.vinluan.sillano@gmail.com",
+                From: "reservationhotel76@gmail.com",
+                Subject: "Hotel Reservation",
+                Body: `Reservation Accepted!!
+                ` 
+              }).then(function (message) {
+                  alert("Accepted!")
+              });
+         
           
     })
 }
-
-
+         
+ 
 auth.onAuthStateChanged(user => {
     if(user){
-         //       realtime listener
-         db.collection('Reservation').onSnapshot(snapshot => {
-            let changes = snapshot.docChanges();
-            changes.forEach(change => {
-                if(change.type == 'added'){
-                    renderReservation(change.doc)
+               //       realtime listener
+               db.collection('Reservation').onSnapshot(snapshot => {
+                let changes = snapshot.docChanges();
+                changes.forEach(change => {
+                    if(change.type == 'added'){
+                        renderReservation(change.doc)
+                    
+                    }else if(change.type == 'removed'){
+                        let li = table.querySelector('[data-id=' + change.doc.id + ']')
                 
-                }else if(change.type == 'removed'){
-                    let li = table.querySelector('[data-id=' + change.doc.id + ']')
-            
-                    table.removeChild(li);
-                }
+                        table.removeChild(li);
+                    }
+                })
             })
-        })
-        
+
         setupUi(user)
     }
     else{

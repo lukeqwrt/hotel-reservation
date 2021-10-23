@@ -80,9 +80,9 @@ function renderReservation(doc){
     
 
 
-    // let cached = JSON.parse(window.sessionStorage.getItem('hotelreservation-cached'));
-    // cached.totalCharges = dayratesTotal
-    // window.sessionStorage.setItem('hotelreservation-cached', JSON.stringify(cached))
+    let cached = JSON.parse(window.sessionStorage.getItem('hotelreservation-cached'));
+    cached.totalCharges = dayratesTotal
+    window.sessionStorage.setItem('hotelreservation-cached', JSON.stringify(cached))
 
 }
 

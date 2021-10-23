@@ -199,13 +199,13 @@
     font-size: 14px;
     width: auto;
     background: #fff;
-    padding: 10px;
+    padding: 20px;
     
 }
 .content .form .checkin-wrapper .mydate p{
     font-weight: 600;
     font-family: 'Nunito Sans', sans-serif;
-    margin-bottom: 10px;
+    margin: 0;
 }
 .content .form .checkin-wrapper .mydate input:nth-child(1){
     font-weight: 800;
@@ -263,8 +263,7 @@
     background: #fff;
     font-weight: 600;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -327,7 +326,7 @@
         display: grid;
         align-items: center;
         grid-auto-flow: column;
-        grid-template-columns: auto auto 180px 180px 180px;
+        grid-template-columns: auto  180px 180px 180px;
         grid-template-rows: 1fr;
 }
 .content .form .btn-add{
@@ -349,11 +348,34 @@
 }
 
 /* about section */
+.main .about-section{
+    
+}
 .main .about-section h3{
     padding: 20px 0;
     font-size: 20px;
     font-weight: 800;
     font-family: 'Nunito Sans', sans-serif;
+}
+.main .about-section p{
+    margin: 0;
+    box-shadow: 0px -52px 41px 5px rgba(255,255,255,0.33) inset;
+-webkit-box-shadow: 0px -52px 41px 5px rgba(255,255,255,0.33) inset;
+-moz-box-shadow: 0px -52px 41px 5px rgba(255,255,255,0.33) inset;
+}
+
+#moreText {
+    /* Display nothing for the element */
+    display: none;
+}
+#textButton{
+    display: block;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0px;
 }
 
 /* amenities */
