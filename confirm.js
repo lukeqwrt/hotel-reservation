@@ -40,11 +40,11 @@ function renderReservation(doc){
     let roomPrice = document.createElement('div');
     let totalCharges = document.createElement('div');
     let cross = document.createElement('div');
-    const dayratesTotal = doc.dayRates * parseInt(doc.price.substring(1), 10)
+    // const dayratesTotal = doc.dayRates * parseInt(doc.price.substring(1), 10)
     totalCharges.classList.add('totalCharges-wrapper')
     let totalChargesContent = `
         <div>Total Charges</div>
-        <p>₱${dayratesTotal}</p>
+        <p>₱${doc.totalPrice}</p>
     `
 
     li.setAttribute('data-id', doc.id);
@@ -80,9 +80,9 @@ function renderReservation(doc){
     
 
 
-    let cached = JSON.parse(window.sessionStorage.getItem('hotelreservation-cached'));
-    cached.totalCharges = dayratesTotal
-    window.sessionStorage.setItem('hotelreservation-cached', JSON.stringify(cached))
+    // let cached = JSON.parse(window.sessionStorage.getItem('hotelreservation-cached'));
+    // cached.totalCharges = dayratesTotal
+    // window.sessionStorage.setItem('hotelreservation-cached', JSON.stringify(cached))
 
 }
 

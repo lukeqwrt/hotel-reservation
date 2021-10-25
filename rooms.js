@@ -5,6 +5,7 @@ const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
 const accountDetails = document.querySelector('.account-details');
 const roomList = document.querySelector('#rooms-list');
+var notAvailable = [];
 
 window.addEventListener('load', () => {
     const loader =  document.querySelector('.loader');
@@ -68,6 +69,27 @@ function renderReservation(doc){
     })
 
 }
+function ReservationResult(doc){
+    let cached = JSON.parse(window.sessionStorage.getItem('hotelreservation-cached'));
+    // console.log(doc)
+    const data = doc.map(i => i.doc.data())
+    // console.log(data)
+    const rooms = data.filter((room) => {
+        const checkout = new Date(room.checkout).getTime() 
+        const checkin2 = new Date(cached.checkin).getTime()
+        return checkin2 < checkout
+        
+    })
+    // var availableRooms = filtered.map(room => room.id)
+    notAvailable = rooms
+
+}
+
+db.collection('Reservation').onSnapshot(snapshot => {
+    let changes = snapshot.docChanges();
+    ReservationResult(changes)
+    
+})
 auth.onAuthStateChanged(user => {
     if(user){
          //       realtime listener
@@ -86,10 +108,18 @@ auth.onAuthStateChanged(user => {
 
         //room realtime listener
         db.collection('rooms').onSnapshot(snapshot => {
+       
+
             let changes = snapshot.docChanges();
             changes.forEach(change => {
-                if(change.type == 'added'){
-                    renderRooms(change.doc);
+                const doc = change.doc
+               
+                // console.log(notAvailable)
+                // console.log(doc.id)
+                if(change.type == 'added'  &&
+                !notAvailable.filter(i => i.roomId == doc.id).length){
+                    renderRooms(doc);
+
                 }
             })
         })
@@ -100,7 +130,7 @@ auth.onAuthStateChanged(user => {
         renderReservation(JSON.parse(hotelreservationcached))
       //rooms list
 function renderRooms(doc){
-
+   
     let li = document.createElement('li');
     li.classList.add('rooms')
     let rooms = document.createElement('span');
@@ -150,13 +180,17 @@ function renderRooms(doc){
         //    window.location.href = "/confirmbooking.html";
         // })
         let cached = JSON.parse(window.sessionStorage.getItem('hotelreservation-cached'));
+        // console.log(roomPrice)
 
+        cached.roomId = doc.id
         cached.CustomeRooms = rooms;
         cached.price = roomPrice;
-
+        cached.totalPrice = parseInt(cached.price.substring(1), 10) * cached.dayRates
         window.sessionStorage.setItem('hotelreservation-cached', JSON.stringify(cached))
     
         window.location.href = "confirmbooking.html"
+
+   
     })
 }   
         setupUi(user)
@@ -166,6 +200,8 @@ function renderRooms(doc){
         setupUi()
     }
 })
+
+
 
 
 function goToSecton(section){

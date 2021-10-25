@@ -32,13 +32,13 @@ function renderReservation(doc){
     let tr = document.createElement('tr');
     tr.classList.add('mytr')
     const buttons = document.getElementById('buttons')
-
+//₱${doc.data().totalCharges}
     var tdContent = `
         <td class="text-nowrap">
             ${doc.data().email}
         </td>
         <td class="text-nowrap text-success" style="font-weight: 600">
-            ₱${doc.data().totalCharges}
+              ₱${doc.data().totalPrice}
         </td>
         <td class="text-nowrap">
             ${doc.data().firstname}
@@ -104,13 +104,24 @@ function renderReservation(doc){
                 Host: "smtp.gmail.com",
                 Username: "reservationhotel76@gmail.com",
                 Password: "Hotel1234",
-                To: "luke.adrian.vinluan.sillano@gmail.com",
+                To: userEmail,
                 From: "reservationhotel76@gmail.com",
-                Subject: "Hotel Reservation",
-                Body: `Reservation Accepted!!
+                Subject: "Letter of confirmation for hotel booking.",
+                Body: `This letter is in regards to the hotel booking you have made for the following date/dates ${doc.data().checkin} to ${doc.data().checkout} at our SBIT3N HOTEL in Quezon City.
+
+                We like to inform you that the bookings you made are confirmed. We will make full arrangements for all your staff members and visitors. 
+
+                We are glad to let you know that the ${doc.data().rooms} rooms you asked for and the exact rooms of ${doc.data().CustomeRooms} have been taken care of and we are allotting for you.
+
+                Regards,
+
+                Hotel
                 ` 
+
+
               }).then(function (message) {
-                  alert("Accepted!")
+                  alert(`Sent to ${userEmail}`)
+                  console.log(message)
               });
          
           
