@@ -66,11 +66,39 @@
 .close{
     cursor: pointer;
 }
+.image-list{
+    cursor: pointer;
+    height: 50px; 
+    width: 50px;
+}
+.image-list.active{
+    border: 2px solid gold;
 
+}
+.main .carousel{
+    height: 400px;
+}
+.main .carousel .carousel-inner{
+    height: 100%;
+}
+
+.carousel .indicator-wrapper{
+    right: unset; 
+    bottom: -90px;
+    margin-left: 0px;
+}
+.main .slider-container{
+    padding: 30px ;
+
+    padding-bottom: 100px;
+    background: #E8E8E9;
+}
 .header{
     margin: 20px;
 }
-
+.main .removeIt{
+    padding-left: 70px;
+}
 .main .title{
     display: grid;
     justify-content: center;
@@ -152,12 +180,44 @@
 
 .location{
     height: auto;
-    width: 400px;
+    width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+    .main .slider-container {
+        padding: 40px;
+        padding-bottom: 60px;
+        background: #E8E8E9;
+    }
+    .carousel .indicator-wrapper {
+        right: unset;
+        bottom: -50px;
+        margin-left: 0px;
+    }
 }
 @media screen and (max-width: 991px) {
-    .location{
+    .main .carousel {
         height: auto;
-        width: 310px;
+    }
+    .main .slider-container {
+        padding: 40px;
+        padding-bottom: 80px;
+        background: #E8E8E9;
+    }
+    .carousel .indicator-wrapper {
+        right: unset;
+        bottom: -75px;
+        margin-left: 0px;
+    }
+  
+}
+@media screen and (max-width: 767px) {
+    .carousel .indicator-wrapper {
+        display: none;
+    }
+    .main .slider-container {
+        padding: 20px;
+        background: #E8E8E9;
     }
 }
 @media screen and (max-width: 752px) {
