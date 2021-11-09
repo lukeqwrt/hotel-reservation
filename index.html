@@ -472,9 +472,19 @@
         checkIn.setAttribute("min", minDate)
 
         checkIn.addEventListener('change', () => {
-          document.getElementById('dateCheckOut').setAttribute("min", checkIn.value)
+          var checkInDate = checkIn.value;
+          var split = checkInDate.split('-');
+          var tomorrow = new Date(parseInt(split[0]), parseInt(split[1] - 1), parseInt(split[2]) + 1, 0,0,0,0);
+          var addNewDate = new Date(tomorrow)
+          var year=addNewDate.getFullYear();
+          var month=addNewDate.getMonth()+1 //getMonth is zero based;
+          var day=addNewDate.getDate();
+          var formatted=year+"-"+month+"-"+day;
+          // console.log(formatted );
+          document.getElementById('dateCheckOut').setAttribute("min", formatted)
         })
   
+    
         
       </script>
 

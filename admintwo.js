@@ -75,7 +75,7 @@ function renderReservation(doc){
         background-color: white;
         z-index:2;">
             <button id="accept" class="btn btn-success text-white mr-2">Accept</button>
-            <button class="btn btn-danger mr-2">Cancel</button>
+            <button id="cancel" class="btn btn-danger mr-2">Cancel</button>
             <button id="remove" class="btn btn-default mr-2">X</button>
         </td>
     `
@@ -86,6 +86,7 @@ function renderReservation(doc){
     // console.log(tr.querySelector('#remove'))
     const removeBtn = tr.querySelector('#remove')
     const acceptBtn = tr.querySelector('#accept')
+    const cancel = tr.querySelector('#cancel')
     // buttons.appendChild("x")
     table.appendChild(tr)
 
@@ -107,7 +108,7 @@ function renderReservation(doc){
                 To: userEmail,
                 From: "reservationhotel76@gmail.com",
                 Subject: "Letter of confirmation for hotel booking.",
-                Body: `This letter is in regards to the hotel booking you have made for the following date/dates ${doc.data().checkin} to ${doc.data().checkout} at our SBIT3N HOTEL in Quezon City.
+                Body: `Hello ${doc.data().firstname}, This letter is in regards to the hotel booking you have made for the following date/dates ${doc.data().checkin} to ${doc.data().checkout} at our SBIT3N HOTEL in Quezon City.
 
                 We like to inform you that the bookings you made are confirmed. We will make full arrangements for all your staff members and visitors. 
 
@@ -117,14 +118,31 @@ function renderReservation(doc){
 
                 Hotel
                 ` 
-
-
               }).then(function (message) {
                   alert(`Sent to ${userEmail}`)
                   console.log(message)
               });
-         
-          
+    })
+
+    cancel.addEventListener('click', (e) => {
+    //  console.log('clicking')
+        e.stopPropagation();
+        let userEmail = e.target.parentElement.parentElement.children[0].innerText
+        Email.send({
+            Host: "smtp.gmail.com",
+            Username: "reservationhotel76@gmail.com",
+            Password: "Hotel1234",
+            To: userEmail,
+            From: "reservationhotel76@gmail.com",
+            Subject: "Letter of confirmation for hotel booking.",
+            Body: `
+            Hello ${doc.data().firstname}, 
+                We are sorry to say that your booking at our hotel was canceled due to some problems with your booking, thank you very much for understanding
+            ` 
+          }).then(function (message) {
+              alert(`Sent to ${userEmail}`)
+            //   console.log(message)
+          });
     })
 }
          
