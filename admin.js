@@ -7,6 +7,7 @@ function renderRooms(doc){
     let rooms = document.createElement('span');
     let roomSize = document.createElement('span');
     let price = document.createElement('span');
+    let count = document.createElement('span');
     let cross = document.createElement('div');
     let div = document.createElement('div');
  
@@ -15,7 +16,7 @@ function renderRooms(doc){
     `
     li.setAttribute('data-id', doc.id);
     rooms.textContent = `Description: ${doc.data().roomDescription}`;
-    roomSize.textContent = `Room Size: ${doc.data().roomSize}`
+    roomSize.textContent = `Room Size: ${doc.data().roomSize}`;
     price.textContent = `Price: ${doc.data().price}`;
     cross.classList.add('fas');
     cross.classList.add('fa-times');

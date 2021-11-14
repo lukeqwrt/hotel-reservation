@@ -54,9 +54,9 @@ function renderReservation(doc){
 
     li.appendChild(checkin)
     li.appendChild(checkout)
-    li.appendChild(rooms)
-    li.appendChild(adult)
-    li.appendChild(children)
+    // li.appendChild(rooms)
+    // li.appendChild(adult)
+    // li.appendChild(children)
    // li.appendChild(cross)
 
     reservation.appendChild(li)

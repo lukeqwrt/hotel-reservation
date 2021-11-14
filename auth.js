@@ -25,6 +25,7 @@ signupForm.addEventListener("submit", (e) => {
 const logout = document.querySelector('#logout');
 logout.addEventListener('click', (e) => {
     // e.preventDefault();
+    localStorage.setItem('email', '')
     auth.signOut();
     // console.log('logged out')
 })
@@ -33,14 +34,18 @@ logout.addEventListener('click', (e) => {
 const loginForm = document.querySelector('#login-form')
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
+
     //get user info
     const email = loginForm['login-email'].value;
     const password = loginForm['login-password'].value;
     signupForm.querySelector('.error').innerHTML = '';
     auth.signInWithEmailAndPassword(email, password).then(cred => {
-       // console.log(cred.user)
+       localStorage.setItem('email', JSON.stringify(email))
+       
        loginForm.querySelector('.error').innerHTML = '';
+
     }).then(() => {
+
         $('#loginmodal').modal('hide')
         loginForm.querySelector('.error').innerHTML = '';
     }).catch(err => {

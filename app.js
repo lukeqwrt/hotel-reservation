@@ -86,84 +86,73 @@ function renderReservation(doc){
 
 const signupError = document.querySelector(".error-signup")
 //listen for all auth status changes
+
 auth.onAuthStateChanged(user => {
-    if(user){
-            //    console.log(user.uid)
-                form.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                  
-                    const date1formInput = document.querySelector('#dateCheckIn').value
-                    const date2formInput = document.querySelector('#dateCheckOut').value
-               
-                    let date1 = new Date(date1formInput)
-                    let date2 = new Date(date2formInput)
-                    let diff = date2.getTime() - date1.getTime();
-                    let msInDay = 1000 * 3600 * 24;
-          
-                    const dayPrice = diff/msInDay
-                    window.sessionStorage.setItem( 'hotelreservation-cached', JSON.stringify({
-                        checkin: form.checkin.value,
-                        checkout: form.checkout.value,
-                        rooms: form.rooms.value,
-                        adults: form.adults.value,
-                        children: form.children.value,
-                        userId: user.uid,
-                        dayRates: dayPrice,
-                        uniqueResDocs: 'show'
-                    }));
-                    $('#loginmodal').modal('hide')
-                    form.checkin.value = '';
-                    form.checkout.value = '';
-                    form.rooms.value = '';
-                    form.adults.value = '';
-                    form.children.value = '';
-                    window.location.href = "/rooms.html"
-                })
-                
-            //    realtime listener
-                // db.collection('Reservation').onSnapshot(snapshot => {
-                //     let changes = snapshot.docChanges();
-                //   console.log(changes[changes.length - 1])
-                //     changes.forEach(change => {
-                //         console.log(changes[changes.length - 1].doc.id)
-                //         if(change.doc.id == changes[changes.length - 1].doc.id){
-                            
-                //             renderReservation(change.doc)
-                //         }else if(change.type == 'removed'){
-                //             let li = reservation.querySelector('[data-id=' + change.doc.id + ']')
-                //             reservation.removeChild(li);
-                //         }
-                //     })
-                // })
+    setupUi(user)
+});
+
+form.addEventListener('submit', (e) => {
+    console.log(e)
+    e.preventDefault();
+    auth.onAuthStateChanged(user => {
+        if(user){
+            const date1formInput = document.querySelector('#dateCheckIn').value
+            const date2formInput = document.querySelector('#dateCheckOut').value
+    
+            let date1 = new Date(date1formInput)
+            let date2 = new Date(date2formInput)
+            let diff = date2.getTime() - date1.getTime();
+            let msInDay = 1000 * 3600 * 24;
+            const dayPrice = diff/msInDay
+            window.sessionStorage.setItem( 'hotelreservation-cached', JSON.stringify({
+                checkin: date1formInput,
+                checkout: date2formInput,
+                userId: user.uid,
+                dayRates: dayPrice,
+                uniqueResDocs: 'show'
+            }));
+            $('#loginmodal').modal('hide')
+            date1formInput.value = '';
+            date1formInput.value = '';
+            window.location.href = "/rooms.html"
+                    
+                    
+                //    realtime listener
+                    // db.collection('Reservation').onSnapshot(snapshot => {
+                    //     let changes = snapshot.docChanges();
+                    //   console.log(changes[changes.length - 1])
+                    //     changes.forEach(change => {
+                    //         console.log(changes[changes.length - 1].doc.id)
+                    //         if(change.doc.id == changes[changes.length - 1].doc.id){
+                                
+                    //             renderReservation(change.doc)
+                    //         }else if(change.type == 'removed'){
+                    //             let li = reservation.querySelector('[data-id=' + change.doc.id + ']')
+                    //             reservation.removeChild(li);
+                    //         }
+                    //     })
+                    // })
 
 
-                // db.collection('Reservation').onSnapshot(snapshot => {
-                //     let changes = snapshot.docChanges();
-                //  //   console.log(changes)
-                //     changes.forEach(change => {
-                //         if(change.type == 'added'){
-                //             renderReservation(change.doc)
-                //         }else if(change.type == 'removed'){
-                //             let li = reservation.querySelector('[data-id=' + change.doc.id + ']')
-                //             reservation.removeChild(li);
-                //         }
-                //     })
-                // })
-    //    console.log('user logged in: ', user)
-        setupUi(user)
-
- 
-    }
-    else{
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-     
-            $('#loginmodal').modal('show')
-        })
-        setupUi();
-              // realtime listener
-         
-    }
+                    // db.collection('Reservation').onSnapshot(snapshot => {
+                    //     let changes = snapshot.docChanges();
+                    //  //   console.log(changes)
+                    //     changes.forEach(change => {
+                    //         if(change.type == 'added'){
+                    //             renderReservation(change.doc)
+                    //         }else if(change.type == 'removed'){
+                    //             let li = reservation.querySelector('[data-id=' + change.doc.id + ']')
+                    //             reservation.removeChild(li);
+                    //         }
+                    //     })
+                    // })
+        //    console.log('user logged in: ', user)
+       
+        }
+        else{
+            $('#loginmodal').modal('show');
+        }
+    });
 })
 
 function goToSecton(section){
