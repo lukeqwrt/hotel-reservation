@@ -154,6 +154,7 @@ auth.onAuthStateChanged(user => {
             cached.lastname = confirmForm.lastname.value
             cached.contact = confirmForm.contact.value
             cached.userId = user.uid
+            cached.adminId = 'bLLt1Zt5veW6nqFXctUHDYsCzgG3'
             // console.log(user.email)
             db.collection('Reservation').add(
                cached

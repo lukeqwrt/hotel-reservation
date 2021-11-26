@@ -32,10 +32,10 @@
     width: 64px;
     height: 64px;
     margin: 5px;
-    border: 5px solid #F3AB1F;
+    border: 5px solid #a06b39;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #F3AB1F transparent transparent transparent;
+    border-color: #a06b39 transparent transparent transparent;
   }
   .loader .lds-ring div:nth-child(1) {
     animation-delay: -0.45s;
@@ -73,6 +73,7 @@
 }
 .main .header .header-content .stars{
     text-align: center;
+    /* color: #F3AB1F; */
     color: #F3AB1F;
 }
 .main .header .header-content .stars i{
@@ -138,7 +139,7 @@
 }
 .main .booking-summary .summary-title{
     padding: 20px 0;
-    background: #C1E1C1;
+    background: #ccaf9b;
 }
 .main .booking-summary .summary-title p{
     margin: 0;

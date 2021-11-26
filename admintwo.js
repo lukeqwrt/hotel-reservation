@@ -56,15 +56,6 @@ function renderReservation(doc){
             ${doc.data().checkout}
         </td>
         <td class="text-nowrap">
-            ${doc.data().adults}
-        </td>
-        <td class="text-nowrap">
-            ${doc.data().children}
-        </td>
-        <td class="text-nowrap">
-            ${doc.data().rooms}
-        </td>
-        <td class="text-nowrap">
             ${doc.data().CustomeRooms}
         </td>
         <td class="text-nowrap">
@@ -150,7 +141,7 @@ function renderReservation(doc){
 auth.onAuthStateChanged(user => {
     if(user){
                //       realtime listener
-               db.collection('Reservation').onSnapshot(snapshot => {
+               db.collection('Reservation').where("adminId", "==", user.uid).onSnapshot(snapshot => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change => {
                     if(change.type == 'added'){

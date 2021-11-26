@@ -140,7 +140,7 @@ function renderRooms(doc){
 
     var roomContent = `
         <img src="./img/inventory-img.jpg" alt="">
-        <p class="room-size">${doc.data().roomDescription} - ${doc.data().roomSize}</p>
+        <p class="room-size">${doc.data().roomDescription} - Room size: ${doc.data().roomSize}</p>
         <div class="price">
         <p>Price: <span class="room-price">${doc.data().price}</span></p>
         <button class="roomsBtn"> BOOK NOW </button>

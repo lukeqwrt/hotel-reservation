@@ -32,10 +32,10 @@
     width: 64px;
     height: 64px;
     margin: 5px;
-    border: 5px solid #F3AB1F;
+    border: 5px solid #a06b39;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #F3AB1F transparent transparent transparent;
+    border-color: #a06b39 transparent transparent transparent;
   }
   .loader .lds-ring div:nth-child(1) {
     animation-delay: -0.45s;
@@ -72,7 +72,7 @@
     width: 50px;
 }
 .image-list.active{
-    border: 2px solid gold;
+    border: 2px solid #a06b39;
 
 }
 .main .carousel{
@@ -92,6 +92,7 @@
 
     padding-bottom: 100px;
     background: #E8E8E9;
+    /* background: #c6c3b3; */
 }
 .header{
     margin: 20px;
@@ -114,7 +115,7 @@
 }
 .main .title .reserve-btn{
     justify-self: center;
-    background: #F3AB1F;
+    background: #a06b39;
     border: none;
     height: 50px;
     width: 100px;
@@ -123,18 +124,20 @@
     font-weight: 800;
     cursor: pointer;
     transition: 0.3s;
+    outline: none;
 }
 .main .title a{
     text-decoration: none;
     color: white;
 }
 .main .title .reserve-btn:hover{
-    background: #E0A800;
+    background: #86592f;
 }
 .main .nav-container{
     width: 100%;
     height: 60px;
-    background: #202027;
+    /* background: #202027; */
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -285,21 +288,21 @@
 
 
 .content .form .btn-add{
-    grid-row: 3/4;
+    grid-row: 2/4;
     grid-column: 1/4;
     height: 100%;
     width: 100%;
-    background: #F3AB1F;
+    background: #a06b39;
     color: white;
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 800;
     cursor: pointer;
     transition: 0.3s;
-    
+    padding: 20px;
     border: none;
 }
 .content .form .btn-add:hover{
-    background: #E0A800;
+    background: #86592f;
 }
 .content .form input::placeholder { 
     color: black;
@@ -352,6 +355,9 @@
 }
 
 @media screen and (min-width: 488px) {
+   .content .form .btn-add{
+       grid-row: 2/3;
+   }
     .dropdown{
         padding:  20px;
         height: 80px;
@@ -370,7 +376,7 @@
         grid-auto-flow: column;
         grid-template-columns: auto auto 180px 180px 180px; */
         display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr;
     }
     .content .form .checkin-wrapper{
@@ -475,7 +481,7 @@
     padding:0 10px;
 }
 .main .amenities .amenities-content .needs i{
-    color: #F3AB1F;
+    color: #a06b39;
 }
 @media screen and (min-width: 976px) {
     .main .amenities .amenities-content{
@@ -536,7 +542,7 @@
     cursor: pointer;
 }
 .main footer .social i:hover{
-    color: #F3AB1F;
+    color: #a06b39;
     transition: 0.3s;
 }
 
