@@ -92,7 +92,7 @@ auth.onAuthStateChanged(user => {
 });
 
 form.addEventListener('submit', (e) => {
-    console.log(e)
+    // console.log(e)
     e.preventDefault();
     auth.onAuthStateChanged(user => {
         if(user){
@@ -112,9 +112,21 @@ form.addEventListener('submit', (e) => {
                 uniqueResDocs: 'show'
             }));
             $('#loginmodal').modal('hide')
-            date1formInput.value = '';
-            date1formInput.value = '';
-            window.location.href = "/rooms.html"
+
+            var prevDate = new Date(date1formInput)            
+            var nextDate = new Date(date2formInput)        
+            const message = document.querySelector('#message')
+     
+            if(prevDate >= nextDate){
+                message.style.display = "block"
+            }
+            else{
+                date1formInput.value = '';
+                date1formInput.value = '';
+                window.location.href = "/rooms.html"
+            }
+
+          
                     
                     
                 //    realtime listener

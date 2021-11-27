@@ -230,10 +230,10 @@
             <p>Check Out</p>
             <input type="date" name="checkout" placeholder="Check Out" id="dateCheckOut" class="txtDate" required>
           </div>
-      
         
         </div>
       
+        <span id="message">Checkout must be </span>
           <!-- <input type="text" name="rooms" placeholder="Rooms" required> -->
           <!-- <div class="dropdown">
             <label for="rooms">Rooms:</label>
@@ -278,7 +278,7 @@
             </select>
           </div> -->
           <button class="btn-add">Add Reservation</button>
-          <p class="error-signup"></p>
+        
         </form>
         <!-- <ul id="reservation-list"></ul> -->
       </div>
@@ -482,7 +482,6 @@
         var year = date.getUTCFullYear();
         var minDatee = year + "-" + month + "-" + tdate;
         checkOut.setAttribute("min", minDatee)
-
         checkIn.addEventListener('change', () => {
           var checkInDate = checkIn.value;
           var split = checkInDate.split('-');
@@ -494,6 +493,7 @@
           var formatted=year+"-"+month+"-"+day;
         
           document.getElementById('dateCheckOut').setAttribute("min", formatted)
+          // console.log(formatted)
         })
 
         // document.getElementById('dateCheckIn').valueAsDate = new Date();

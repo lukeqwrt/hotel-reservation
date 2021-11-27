@@ -7,6 +7,14 @@
     display: none;
 }
 
+#message{
+    padding: 10px 0;
+    display: none; 
+    color: rgb(231, 81, 81);
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 500;
+}
+
 .loader{
     position: fixed;
     top: 0;
