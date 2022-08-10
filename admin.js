@@ -120,7 +120,7 @@ auth.onAuthStateChanged(user => {
                 roomDescription: form.roomDescription.value,
                 roomSize: form.roomSize.value,
                 price: form.price.value,
-                adminUID: 'bLLt1Zt5veW6nqFXctUHDYsCzgG3'
+                adminUID: 'ypn8WFft6wN6b64KFb0jUS7lLjF3'
             });
         
             form.roomDescription.value = "";
